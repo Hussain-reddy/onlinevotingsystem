@@ -1,0 +1,31 @@
+```html
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Election Results</h1>
+
+    <h2>Total Votes: {{ total_votes }}</h2>
+
+    {% for candidate in candidates %}
+
+    <div class="result-item">
+
+        <h3>{{ candidate["name"] }}</h3>
+
+        <p>{{ candidate["party"] }}</p>
+
+        <p>
+            Votes: {{ candidate["votes"] }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+```

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Cast Your Vote</h1>
+
+    <p class="welcome">
+        Welcome, <strong>{{ user["username"] }}</strong>
+    </p>
+
+
+    {% if user["has_voted"] == 1 %}
+
+        <div class="already-voted">
+
+            <h2>You have already voted.</h2>
+
+            <p>
+                Each voter can vote only once.
+            </p>
+
+            <a class="button-link"
+               href="{{ url_for('results') }}">
+                View Results
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <form
+            method="POST"
+            action="{{ url_for('submit_vote') }}"
+            onsubmit="return confirmVote()"
+        >
+
+            <div class="candidate-list">
+
+                {% for candidate in candidates %}
+
+                <label class="candidate">
+
+                    <input
+                        type="radio"
+                        name="candidate"
+                        value="{{ candidate['id'] }}"
+                        required
+                    >
+
+                    <div class="candidate-info">
+
+                        <h3>
+                            {{ candidate["name"] }}
+                        </h3>
+
+                        <p>
+                            {{ candidate["party"] }}
+                        </p>
+
+                    </div>
+
+                </label>
+
+                {% endfor %}
+
+            </div>
+
+
+            <button type="submit" class="vote-button">
+                Submit Vote
+            </button>
+
+        </form>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
